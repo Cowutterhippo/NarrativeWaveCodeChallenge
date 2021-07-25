@@ -7,6 +7,12 @@ import { appRoutes } from './app-routing';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { ContainerComponent } from './container/container.component';
 
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+import { ecomMaterialModule } from './material-module';
+
+
 @NgModule({
   declarations: [		
     AppComponent,
@@ -14,6 +20,7 @@ import { ContainerComponent } from './container/container.component';
       ContainerComponent
    ],
   imports: [
+    ecomMaterialModule,
     BrowserModule,
     RouterModule.forRoot(appRoutes)
   ],
