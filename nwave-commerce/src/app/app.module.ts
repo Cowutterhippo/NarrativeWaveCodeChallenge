@@ -11,13 +11,15 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import { ecomMaterialModule } from './material-module';
+import { LandingPageComponent } from './landing-page/landing-page.component';
 
 
 @NgModule({
   declarations: [		
     AppComponent,
       NavBarComponent,
-      ContainerComponent
+      ContainerComponent,
+      LandingPageComponent
    ],
   imports: [
     ecomMaterialModule,

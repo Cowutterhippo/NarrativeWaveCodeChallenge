@@ -7,4 +7,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'nwave-commerce';
+  loggedIn = false;
+  constructor() {
+
+  }
+
+  ngOnInit() {
+      //this.authservice.
+  }
 }

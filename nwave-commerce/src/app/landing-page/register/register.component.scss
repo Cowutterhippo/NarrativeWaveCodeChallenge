@@ -1,0 +1,23 @@
+:host > * {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 90%;
+
+  h2 {
+    text-align: center;
+  }
+
+  .form-group {
+    
+    .mat-form-field {
+      width: 90%;
+    }
+
+    .confirm-error {
+      text-align: left;
+      margin-left: 23px;
+      font-size: 12px;
+    }
+  }
+}

@@ -1,4 +1,6 @@
 <app-nav-bar></app-nav-bar>
-<app-container>
+<app-container *ngIf="loggedIn">
   <router-outlet></router-outlet>
 </app-container>
+
+<app-landing-page *ngIf="!loggedIn"></app-landing-page>
