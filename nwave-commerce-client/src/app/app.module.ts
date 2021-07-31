@@ -7,26 +7,30 @@ import { appRoutes } from './app-routing';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { ContainerComponent } from './container/container.component';
 
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatIconModule} from '@angular/material/icon';
-import {MatButtonModule} from '@angular/material/button';
 import { ecomMaterialModule } from './material-module';
-import { LandingPageComponent } from './landing-page/landing-page.component';
+import { AuthenticationService } from './auth/_services/authentication.service';
+import { AuthGuardService } from './auth/_services/auth-guard.service';
+import { HttpClientModule } from '@angular/common/http';
+import { LandingPageModule } from './landing-page/landing-page.module';
 
 
 @NgModule({
-  declarations: [		
+  declarations: [
     AppComponent,
-      NavBarComponent,
-      ContainerComponent,
-      LandingPageComponent
+    NavBarComponent,
+    ContainerComponent
    ],
   imports: [
+    LandingPageModule,
     ecomMaterialModule,
     BrowserModule,
+    HttpClientModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [],
+  providers: [
+    AuthenticationService,
+    AuthGuardService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthenticationService } from './auth/_services/authentication.service';
 
 @Component({
   selector: 'app-root',
@@ -8,11 +9,13 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'nwave-commerce';
   loggedIn = false;
-  constructor() {
+  constructor(
+    private authService: AuthenticationService
+  ) {
 
   }
 
   ngOnInit() {
-      //this.authservice.
+     this.loggedIn = this.authService.isLoggedIn();
   }
 }

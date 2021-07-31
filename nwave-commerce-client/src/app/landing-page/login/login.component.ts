@@ -1,72 +1,34 @@
-import { Component, OnInit, Inject, Output, EventEmitter } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
-import { RegisterComponent } from '../register/register.component';
+import { Component } from '@angular/core';
+import { AuthenticationService } from '../../auth/_services/authentication.service';
+import { Router } from '@angular/router';
+import { ITokenPayload } from 'src/app/auth/_models/auth-interface';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  templateUrl: './login.component.html'
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
+  credentials: ITokenPayload = {
+    email: '',
+    password: ''
+  };
 
-  private loginForm: FormGroup;
-  loginFormErrors: any;
+  loginForm : FormGroup;
 
-  constructor(
-    private formBuilder: FormBuilder,
-    public dialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public data: string,
-  ) { 
-      this.loginFormErrors = {
-        email   : {},
-        password: {}
-      };
-  }
+  constructor(private auth: AuthenticationService, private router: Router) {
+    this.loginForm = new FormGroup({
+      email: new FormControl(['', Validators.required, Validators.email]),
+      password: new FormControl(['', Validators.required])
+    })
 
-  ngOnInit() {
-    this.createLoginForm();
-    this.loginForm.valueChanges.subscribe(() => {
-      this.onLoginFormValuesChanged();
-    });
-  }
-
-  onLoginFormValuesChanged()
-  {
-      for ( const field in this.loginFormErrors )
-      {
-          if ( !this.loginFormErrors.hasOwnProperty(field) )
-          {
-              continue;
-          }
-
-          // Clear previous errors
-          this.loginFormErrors[field] = {};
-
-          // Get the control
-          const control = this.loginForm.get(field);
-
-          if ( control && control.dirty && !control.valid )
-          {
-              this.loginFormErrors[field] = control.errors;
-          }
-      }
-  }
-
-  createLoginForm() {
-    this.loginForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]],
-    });
   }
 
   login() {
-    // this.store.dispatch(new AuthActions.Login(this.loginForm.value));
-  }
-
-  reroute() {
-    this.dialog.open(RegisterComponent, {
-      width: '384px'
+    const credentials = Object.assign({}, this.loginForm.value)
+    this.auth.login(credentials).subscribe(() => {
+      this.router.navigateByUrl('/catalog');
+    }, (err) => {
+      console.error(err);
     });
   }
 }
